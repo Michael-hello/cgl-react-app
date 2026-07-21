@@ -1,8 +1,8 @@
 import type { Country } from "./_prescription";
 
     
-
-export async function getBankHolidays(country: Country, years: number[]): Promise<Date[] | null> {
+//fetch bank holidays from gov.uk api for given country and years
+export async function getBankHolidays(country: Country): Promise<Date[] | null> {
 
     const URL = 'https://www.gov.uk/bank-holidays.json';
 
@@ -11,7 +11,7 @@ export async function getBankHolidays(country: Country, years: number[]): Promis
 
         if(response && response.ok) {
             let data = await response.json();
-            return processBankHolidays(data, country, years);
+            return processBankHolidays(data, country);
         };
         return null;
     } catch (error) {
@@ -21,8 +21,8 @@ export async function getBankHolidays(country: Country, years: number[]): Promis
 };
 
 
-
-function processBankHolidays(data: any, country: Country, years: number[]): Date[] | null {
+//process fetch response and extract bank holiday dates for given country and years
+function processBankHolidays(data: any, country: Country): Date[] | null {
 
     let countryKey = 'scotland';
     if(country === 'England' || country === 'Wales') countryKey = 'england-and-wales'; 
@@ -31,14 +31,17 @@ function processBankHolidays(data: any, country: Country, years: number[]): Date
     if(data && data[countryKey] && data[countryKey].events) {
         let events = data[countryKey].events;
         let filteredEvents = events.filter((event: any) => {
-            if(!event.date) return false;
-            let eventYear = new Date(event.date).getFullYear();
-            return years.includes(eventYear);
+            return event.date;
         });
-        console.log(`Bank holidays in ${country} for ${years.join(', ')}:`, filteredEvents);
         return filteredEvents.map((x: any) => new Date(x.date));
     } else {
         console.error(`No bank holiday data found for ${country}`);
         return null;
     }
+};
+
+
+//return dates that sit within range from and to, inclusive, from the given bank holidays array
+export function filterBankHolidays(from: Date, to: Date, bankHolidays: Date[]): Date[] {
+    return bankHolidays.filter(bh => bh.getTime() >= from.getTime() && bh.getTime() <= to.getTime());
 };
