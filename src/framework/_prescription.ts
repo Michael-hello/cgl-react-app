@@ -2,9 +2,9 @@
 export interface Prescription {
   id: string;
   name: string;
-  startDate: string;
+  startDate: Date;
   userOpts: PrescriptionUserOptions;
-  dosages: { day: Day, dosage: number }[];
+  dosages: { day: Day, dosage: number, date: Date }[];
 };  
 
 
@@ -29,6 +29,7 @@ export interface TitrationReducingOptions {
 };
 
 
+//values are inline with the JS Date getDay() method, where 0 is Sunday and 6 is Saturday
 export const DaysConst = {
   Monday: 1,
   Tuesday: 2,
@@ -36,9 +37,13 @@ export const DaysConst = {
   Thursday: 4,
   Friday: 5,
   Saturday: 6,
-  Sunday: 7
+  Sunday: 0
 } as const;
 
+//mapper function to get object key from value
+export function getDayName(dayNumber: number): Day | undefined {
+  return Object.entries(DaysConst).find(([_, value]) => value === dayNumber)?.[0] as Day | undefined;
+};
 
 export type Day = keyof typeof DaysConst;
 

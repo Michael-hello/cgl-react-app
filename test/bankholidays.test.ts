@@ -1,6 +1,6 @@
 import { filterBankHolidays, getBankHolidays } from '@lib_framework';
 import { vi, expect, beforeEach, describe, it } from 'vitest';
-import { bankHolidayResponse } from './bh_result';
+import { bankHolidayResponse } from './_bh_result';
 
 const mockFetch = vi.fn();
 

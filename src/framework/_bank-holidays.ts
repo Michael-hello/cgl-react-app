@@ -45,3 +45,7 @@ function processBankHolidays(data: any, country: Country): Date[] | null {
 export function filterBankHolidays(from: Date, to: Date, bankHolidays: Date[]): Date[] {
     return bankHolidays.filter(bh => bh.getTime() >= from.getTime() && bh.getTime() <= to.getTime());
 };
+
+export function isBankHoliday(x: Date, bankHolidays: Date[]): boolean {
+    return bankHolidays.some(bh => bh.getTime() === x.getTime());
+};
