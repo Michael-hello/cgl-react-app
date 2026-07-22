@@ -62,7 +62,7 @@ export function PrescriptionButton({ options, bankHolidays }: PrescriptionButton
                             <p>{index + 1}.</p>
                             <p>{dosage.day}</p>
                             <p>{formatDate(dosage)}</p>
-                            <p>{`${dosage.dosage} ${options.dosageUnits}`}</p>
+                            <p>{`${dosage.dosage.toFixed(1)} ${options.dosageUnits}`}</p>
                         </div>
                     ))}
                 </div>
