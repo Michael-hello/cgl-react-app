@@ -56,10 +56,10 @@ export function calculateDosages(
 
       dosage += dailyDosages[i];
 
-      let days = startDate.getDate() + i;
+      let days = startDate.getUTCDate() + i;
       let currentDate = new Date(startDate);  
-      currentDate.setDate(days);
-      let thisDay = currentDate.getDay(); //returns day of the week as a number (0-6) where 0 is Sunday and 6 is Saturday
+      currentDate.setUTCDate(days);
+      let thisDay = currentDate.getUTCDay(); //returns day of the week as a number (0-6) where 0 is Sunday and 6 is Saturday
       let currentDay = getDayName(thisDay) as Day;
       let isBH = isBankHoliday(currentDate, bankHolidays);
 

@@ -1,7 +1,7 @@
 import type { Country } from "./_prescription";
 
     
-//fetch bank holidays from gov.uk api for given country and years
+//fetch bank holidays from gov.uk api for given country
 export async function getBankHolidays(country: Country): Promise<Date[] | null> {
 
     const URL = 'https://www.gov.uk/bank-holidays.json';
@@ -21,7 +21,7 @@ export async function getBankHolidays(country: Country): Promise<Date[] | null> 
 };
 
 
-//process fetch response and extract bank holiday dates for given country and years
+//process fetch response and extract bank holiday dates for given country
 function processBankHolidays(data: any, country: Country): Date[] | null {
 
     let countryKey = 'scotland';

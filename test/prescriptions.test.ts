@@ -128,7 +128,7 @@ describe('test final user prescriptions are correct', () => {
     expect(dosages).toHaveLength(14);
     expect(totalDosage).toBe(630);
     expect(dosages[0].day).toBe('Monday');
-    expect(dosages[0].dosage).toBe(240);
+    expect(dosages[0].dosage).toBe(175);
   });
 
 });
