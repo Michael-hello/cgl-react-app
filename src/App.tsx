@@ -13,10 +13,11 @@ function App() {
 
   let bankHolidays: Date[] = [];
 
+  //retrieves bank holidays everytime country is changed
   useEffect(() => {
     (async () => {
       bankHolidays = await getBankHolidays(country) || [];
-      console.log(bankHolidays);
+      console.log(bankHolidays.length);
     })();
   }, [ country ]);
 

@@ -95,7 +95,7 @@ describe('test final user prescriptions are correct', () => {
 
   it('check user dosages are correct - stabilisation', async () => {
 
-    const startDate = new Date("2026-05-26");
+    const startDate = new Date("2026-05-29");
     const options: PrescriptionUserOptions = mockOptions('Stabilisation'); 
     const bankHolidays = [ new Date("2026-05-27") ]; 
 
@@ -106,15 +106,15 @@ describe('test final user prescriptions are correct', () => {
 
     expect(dosages).toHaveLength(14);
     expect(totalDosage).toBe(840);
-    expect(sorted[0].day).toBe('Monday');
-    expect(sorted[0].dosage).toBe(240);
+    expect(sorted[0].day).toBe('Friday');
+    expect(sorted[0].dosage).toBe(180);
   });
 
   
   
   it('check user dosages are correct - reducing', async () => {
 
-    const startDate = new Date("2026-05-26");
+    const startDate = new Date("2026-05-25");
     const options: PrescriptionUserOptions = mockOptions('Reducing'); 
     options.daysAvailable = ['Monday',  'Thursday', 'Sunday'];
     const bankHolidays: Date[] = []//[ new Date("2026-05-27") ]; 
@@ -123,7 +123,6 @@ describe('test final user prescriptions are correct', () => {
 
     let totalDosage = dosages.reduce((acc, curr) => acc + curr.dosage, 0);
     let sorted = dosages.sort((a, b) => a.date.getTime() - b.date.getTime());
-    console.log(sorted)
 
     expect(dosages).toHaveLength(14);
     expect(totalDosage).toBe(630);

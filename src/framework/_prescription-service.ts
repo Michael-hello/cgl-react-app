@@ -1,6 +1,6 @@
 
 import { isBankHoliday } from './_bank-holidays';
-import { DaysConst, getDayName, type Day, type Prescription, type PrescriptionUserOptions } from './_prescription';
+import { getDayName, type Day, type Prescription, type PrescriptionUserOptions } from './_prescription';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -104,8 +104,8 @@ export function calculateDailyDosage(options: PrescriptionUserOptions, prescript
 };
 
 
-export function getStartDate(chosenDays: Day[]): Date {
-  const today = new Date();
+export function getStartDate(chosenDays: Day[], today: Date): Date {
+  
   const todayDayNumber = today.getUTCDay(); //returns day of the week as a number (0-6) where 0 is Sunday and 6 is Saturday
   const todayDay: Day = getDayName(todayDayNumber) as Day;
 
@@ -124,6 +124,6 @@ export function getStartDate(chosenDays: Day[]): Date {
     }
   };
 
-  return today; //return today as a fallbaac for now
+  return today; //return today as a fallback for now
 
 };

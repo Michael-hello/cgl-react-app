@@ -16,7 +16,8 @@ export function PrescriptionButton({ options, bankHolidays }: PrescriptionButton
       const dialog = document.getElementById('my-dialog') as HTMLDialogElement;
       setErrors(validateOptions(options));
       if (errors.length === 0) {
-        let startDate = getStartDate(options.daysAvailable);
+        const today = new Date();
+        let startDate = getStartDate(options.daysAvailable, today);
         let presc = generatePrescription(options, startDate, bankHolidays);
         presc.dosages = presc.dosages.sort((a, b) => a.date.getTime() - b.date.getTime());
         setPrescription(presc);
@@ -54,10 +55,11 @@ export function PrescriptionButton({ options, bankHolidays }: PrescriptionButton
                     </ul>
                 </div>
             ) : (
-                <div className="container" style={{ width: '300px' }}>
+                <div className="container" style={{ width: '340px' }}>
                     <h3>{ prescription?.name || 'Prescription' }:</h3>
                     {prescription?.dosages.map((dosage, index) => (
                         <div className="prescription-row" key={index}>
+                            <p>{index + 1}.</p>
                             <p>{dosage.day}</p>
                             <p>{formatDate(dosage)}</p>
                             <p>{`${dosage.dosage} ${options.dosageUnits}`}</p>

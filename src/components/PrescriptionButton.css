@@ -29,7 +29,8 @@
 .prescription-row {
     text-align: left;
     display: grid;
-    grid-template-columns: 100px 120px 80px;
+    grid-template-columns: 40px 100px 120px 80px;
+    gap: 10px;
 }
 
 .container{
