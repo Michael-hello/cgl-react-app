@@ -31,7 +31,7 @@ export function generatePrescription(
 
     return {
         id: uuidv4(),
-        name: `2 week ${options.type} prescription `,
+        name: `2 week ${options.type.toLocaleLowerCase()} prescription `,
         startDate,
         userOpts: { ...options },
         dosages
@@ -101,4 +101,29 @@ export function calculateDailyDosage(options: PrescriptionUserOptions, prescript
   };
 
   return dosages;
+};
+
+
+export function getStartDate(chosenDays: Day[]): Date {
+  const today = new Date();
+  const todayDayNumber = today.getUTCDay(); //returns day of the week as a number (0-6) where 0 is Sunday and 6 is Saturday
+  const todayDay: Day = getDayName(todayDayNumber) as Day;
+
+  if(todayDay && chosenDays.includes(todayDay)) {
+    return today; //today is a valid pickup day
+  };
+
+  //find the next available pickup day
+  for(let i = 1; i <= 7; i++) {
+    const nextDate = new Date(today);
+    nextDate.setUTCDate(today.getUTCDate() + i);
+    const nextDayNumber = nextDate.getUTCDay();
+    const nextDay: Day = getDayName(nextDayNumber) as Day;
+    if(nextDay && chosenDays.includes(nextDay)) {
+      return nextDate;
+    }
+  };
+
+  return today; //return today as a fallbaac for now
+
 };

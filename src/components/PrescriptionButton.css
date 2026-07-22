@@ -1,0 +1,49 @@
+.prescription-button {
+  background: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+}
+
+.prescription-button:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+}
+
+#my-dialog {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 24px;
+  width: 500px;
+  /* display: grid;
+  grid-template-rows: 1fr 40px; */
+}
+
+.prescription-row {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 100px 120px 80px;
+}
+
+.container{
+    margin: 10px auto 20px;
+}
+
+.closeDialog {
+    background: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 24px;
+}

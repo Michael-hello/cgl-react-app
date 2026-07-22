@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getBankHolidays, initPrescriptionState, type Country, type PrescriptionUserOptions } from '@lib_framework';
-import { DaySelector, DosageOptions } from './components';
+import { DaySelector, DosageOptions, PrescriptionButton } from './components';
 
 import './App.css'
 
@@ -103,6 +103,11 @@ function App() {
             }}
           />
         )}
+
+        <PrescriptionButton 
+          options={options}
+          bankHolidays={bankHolidays} 
+        />
 
       </section>
     </>
