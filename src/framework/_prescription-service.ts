@@ -49,11 +49,12 @@ export function calculateDosages(
     let chosenDays = options.daysAvailable;
     const prescriptionLength = 14; // 2 weeks
 
+    let dailyDosages = calculateDailyDosage(options, prescriptionLength);
     let dosage = 0;
 
     for(let i = prescriptionLength - 1; i >= 0; i--) {
 
-      dosage += options.stabilisationDosage;
+      dosage += dailyDosages[i];
 
       let days = startDate.getDate() + i;
       let currentDate = new Date(startDate);  
@@ -72,4 +73,32 @@ export function calculateDosages(
     };    
 
     return dosages;
+};
+
+
+
+//calculates what the dosage is for each day, irrespective of user availability
+export function calculateDailyDosage(options: PrescriptionUserOptions, prescriptionLength: number): { [key: number]: number } {
+
+  let dosages: { [key: number]: number } = {}; 
+
+  if(options.type === 'Stabilisation') {
+    for(let i = 0; i < prescriptionLength; i++) {
+      dosages[i] = options.stabilisationDosage;
+    }
+  };
+
+  if(options.type === 'Reducing' || options.type === 'Increasing') {
+    let currentDose = options.TROptions.initialDose;
+    let scalar = options.type === 'Reducing' ? -1 : 1;
+    for(let i = 0; i < prescriptionLength; i++) {
+      if(i % (options.TROptions.frequency) === 0 && i > 0) {
+        currentDose += scalar * options.TROptions.deltaDose;
+        if(currentDose < 0) currentDose = 0;
+      };
+      dosages[i] = currentDose;
+    };
+  };
+
+  return dosages;
 };
